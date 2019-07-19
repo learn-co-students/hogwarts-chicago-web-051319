@@ -6,6 +6,7 @@ import hogs from '../porkers_data';
 
 import HogTile from './HogTile'
 import Filter from './Filter'
+import HiddenHogs from './HiddenHogs'
 
 
 
@@ -19,7 +20,8 @@ class App extends Component {
       greased: false,
       sortedBy: "",
       allHogs: hogs,
-      hiddenHogs: []
+      hiddenHogs: [],
+      hidden: false
     }
   }
 // hogs = [1, 2, 3, 4]
@@ -72,8 +74,26 @@ class App extends Component {
         hiddenHogs: newHiddenHogs
       })
 
-      console.log(newAllHogs.splice(hiddenHogId, 0))
+    }
 
+    showHiddenHogs = () => {
+      const hiddenHogs = this.state.hiddenHogs
+      return hiddenHogs.map((data, index) =>
+      <HiddenHogs
+      key={index}
+      image={require(`../hog-imgs/${data.name.toLowerCase().replace(/ /g,"_")}.jpg`)}
+      name={data.name}
+      specialty={data.specialty}
+      greased={data.greased}
+      details={data["weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water"]}
+      medal={data["highest medal achieved"]}
+      />)
+    }
+
+    toggleHiddenHogs = () => {
+      this.setState({
+        hidden: !this.state.hidden
+      })
     }
 
 
@@ -83,10 +103,14 @@ class App extends Component {
     return (
       <div className="App">
           < Nav />
-          < Filter receiveFilter = {this.receiveFilter}/>
+            {this.state.hidden ? this.showHiddenHogs() : null}
+          < Filter receiveFilter = {this.receiveFilter} toggleHiddenHogs = {this.toggleHiddenHogs}/>
+
           <div className="ui grid container">
           {this.renderHogs()}
+
           </div>
+
 
       </div>
     )

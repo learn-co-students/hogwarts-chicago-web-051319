@@ -45,9 +45,7 @@ export default class Filter extends Component{
         <option value="weight">Weight</option>
        </select>
        <button onClick={()=>this.props.receiveFilter(greased, sortedBy)}>Submit</button>
-
-
-
+       <button onClick={()=>this.props.toggleHiddenHogs()}>Show hidden hogs</button>
       </div>
     )
   }
