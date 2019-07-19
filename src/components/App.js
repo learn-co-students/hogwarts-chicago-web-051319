@@ -9,6 +9,7 @@ import Filter from './Filter'
 
 
 
+
 class App extends Component {
 
 
@@ -16,29 +17,34 @@ class App extends Component {
     super()
     this.state={
       greased: false,
-      sortedBy: ""
+      sortedBy: "",
+      allHogs: hogs,
+      hiddenHogs: []
     }
   }
-
+// hogs = [1, 2, 3, 4]
   receiveFilter = (greaseInfo, sortedByInfo) => {
+
+    let allHogs = this.state.allHogs
+    let weight = "weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water"
+    {greaseInfo === true ? allHogs=hogs.filter(hog => hog.greased === true) : allHogs=hogs}
+    {sortedByInfo === "name" ? allHogs.sort((a, b) => a.name.localeCompare(b.name)) : allHogs.sort((a, b) => a[weight] - b[weight])}
+
     this.setState({
       greased: greaseInfo,
       sortedBy: sortedByInfo,
-
+      allHogs: allHogs,
     })
   }
 
-
-
-  generateHogTiles = () => {
-    let allHogs = hogs
-    let weight = "weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water"
-    {this.state.greased === true ? allHogs=hogs.filter(hog => hog.greased === true) : allHogs=hogs}
-    {this.state.sortedBy === "name" ? allHogs.sort((a, b) => a.name.localeCompare(b.name)) : allHogs.sort((a, b) => a[weight] - b[weight])}
-    return allHogs.map((data, index) =>
+  renderHogs = () => {
+    console.log(this.state.allHogs);
+    const filteredHogs = this.state.allHogs
+    return filteredHogs.map((data, index) =>
     <HogTile
       handleHide = {this.handleHide}
       key={index}
+      id={index}
       image={require(`../hog-imgs/${data.name.toLowerCase().replace(/ /g,"_")}.jpg`)}
       name={data.name}
       specialty={data.specialty}
@@ -49,12 +55,26 @@ class App extends Component {
   }
 
 
-    //
-    // handleHide = (event) => {
-    //   let hiddenHog=parseInt(event.target.parentNode.id)
-    //  console.log(this.state.allHogs);
-    //
-    // }
+
+    handleHide = (event) => {
+      let hiddenHogId=parseInt(event.target.parentNode.id)
+      const hiddenHog=this.state.allHogs[hiddenHogId]
+
+      const newHiddenHogs = this.state.hiddenHogs
+      newHiddenHogs.push(hiddenHog)
+
+
+      const newAllHogs =this.state.allHogs
+      newAllHogs.splice(hiddenHogId, 1)
+
+      this.setState({
+        allHogs: newAllHogs,
+        hiddenHogs: newHiddenHogs
+      })
+
+      console.log(newAllHogs.splice(hiddenHogId, 0))
+
+    }
 
 
 
@@ -64,10 +84,8 @@ class App extends Component {
       <div className="App">
           < Nav />
           < Filter receiveFilter = {this.receiveFilter}/>
-
-
           <div className="ui grid container">
-          {this.generateHogTiles()}
+          {this.renderHogs()}
           </div>
 
       </div>

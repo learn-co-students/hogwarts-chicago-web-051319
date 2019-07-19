@@ -31,10 +31,12 @@ export default class Filter extends Component{
 
 
   render(){
-    let greased = this.state.greased
-    let sorted = this.state.sortedBy
+    // let greased = this.state.greased
+    // let sorted = this.state.sortedBy
+    const {greased, sortedBy} =　this.state
     return(
-      <div>
+      <div className="ui centered grid container">
+
        Greased: <input type="checkbox" name="greased" onChange={() => this.handleGreasedChecked()}/>
        Sort by:
        <select name="sort" onChange={(event) => this.handleSort(event)}>
@@ -42,7 +44,8 @@ export default class Filter extends Component{
         <option value="name">Name</option>
         <option value="weight">Weight</option>
        </select>
-       <button onClick={()=>this.props.receiveFilter(greased, sorted)}>Submit</button>
+       <button onClick={()=>this.props.receiveFilter(greased, sortedBy)}>Submit</button>
+
 
 
       </div>
