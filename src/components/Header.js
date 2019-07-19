@@ -1,7 +1,7 @@
 import piggy from '../porco.png'
 import React from 'react'
 
-const Nav = () => {
+const Header = () => {
 	return (
 		<div className="navWrapper">
 			<span className="headerText">Hogwarts</span>
@@ -15,4 +15,4 @@ const Nav = () => {
 	)
 }
 
-export default Nav
+export default Header

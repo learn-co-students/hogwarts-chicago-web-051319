@@ -73,7 +73,7 @@ ul {
 }
 
 
-.pigTile {
+/* .pigTile {
   display: inline;
   background-repeat: no-repeat;
   background-position: center 90%;
@@ -81,6 +81,19 @@ ul {
   margin: 2%;
   padding: 1%;
   outline: #3B0B0B dotted thick;
+  transition: 0.75s;
+  opacity: 1;
+} */
+
+.pigTile {
+  display: inline;
+  background-repeat: no-repeat;
+  background-position: center 90%;
+  /* float: right; */
+  margin: 2%;
+  padding: 1%;
+  box-sizing: border-box;
+  outline: #3B0B0B solid thick;
   transition: 0.75s;
   opacity: 1;
 }
@@ -104,6 +117,7 @@ ul {
 
 .pigTile h3 {
   color: #FBB;
+  font-size: 1em;
 }
 .minPigTile {
   width: 250px;
@@ -133,6 +147,24 @@ ul {
   clear: both;
 }
 
+.pigContainer{
+  display: inline !important ;
+}
+
+.piggyCheckbox{
+  height: 1.2em;
+  width: 1.2em;
+  padding: 1em;
+  margin: 0 1em;
+}
+
+label{
+  margin: .75em;
+}
+
+button{
+  margin-left: 1em
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
